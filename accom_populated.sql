@@ -1,6 +1,6 @@
 USE `world-cup-db`;
 
-INSERT INTO accomodation (hotel_name, location, room_type, venue_id)
+INSERT INTO accommodation (hotel_name, location, room_type, venue_id)
 VALUES ('Hotel X Toronto by Library Hotel Collection', "111 Princes' Blvd, Toronto, ON M6K 3C3, Canada", '1 bed', 1),
 ('Radisson Blu Toronto Downtown', '249 Queens Quay W, Toronto, ON M5J 2N5, Canada', '2 bed', 1),
 ('Georgian Court Hotel, WorldHotels Elite', '773 Beatty St, Vancouver, BC V6B 2M4, Canada', '1 bed', 2),
