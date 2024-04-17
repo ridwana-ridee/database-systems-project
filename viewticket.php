@@ -1,35 +1,37 @@
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Employee Records</title>
+    <title>Ticket Records</title>
 </head>
 <body>
     <?php
         $host = "localhost";
-        $user = "msyed11";
-        $pass = "msyed11";
-        $dbname = "msyed11";
+        $user = "root";
+        $pass = "";
+        $dbname = "world-cup-db";
 
         $conn = new mysqli($host, $user, $pass, $dbname);
 
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
+        } else {
+            echo "connection successful";
         }
 
-        if (isset($_POST['emp_name']) && !empty($_POST['emp_name']) &&
-            isset($_POST['job_title']) && !empty($_POST['job_title']) &&
-            isset($_POST['hire_date']) && !empty($_POST['hire_date']) &&
-            isset($_POST['salary']) && !empty($_POST['salary'])) {
+        if (isset($_POST['ticket_type']) && !empty($_POST['ticket_type']) &&
+            isset($_POST['price']) && !empty($_POST['price']) &&
+            isset($_POST['ticket_status']) && !empty($_POST['ticket_status'])) {
             
-            $emp_name = $_POST['emp_name'];
-            $job_title = $_POST['job_title'];
-            $hire_date = $_POST['hire_date'];
-            $salary = $_POST['salary'];
+            $id = $_POST['id'];
+            $ticket_type = $_POST['ticket_type'];
+            $price = $_POST['price'];
+            $ticket_status = $_POST['ticket_status'];
 
-            $sql = "INSERT INTO EMPLOYEE (emp_name, job_title, hire_date, salary)
-                    VALUES ('$emp_name', '$job_title', '$hire_date', '$salary')";
+            $sql = "INSERT INTO ticket (ticket_type, price, ticket_status)
+                    VALUES ('$ticket_type', '$price', '$ticket_status')";
             
             if ($conn->query($sql) === TRUE) {
-                echo "<h2>Employee record inserted successfully</h2>";
+                echo "<h2>Ticket record inserted successfully</h2>";
             } else {
                 echo "Error: " . $sql . "<br>" . $conn->error;
             }
@@ -37,27 +39,24 @@
             echo "<h2>Sorry! You didn’t complete the form. Please try again.</h2>";
         }
 
-        echo "<p><a href='newemployee.php'>Enter new employee.</a></p>";
-        echo "<h2>All employee data</h2>";
+        echo "<p><a href='AddTicket.html'>Enter new ticket.</a></p>";
+        echo "<h2>All ticket data</h2>";
 
-        $sql = "SELECT * FROM EMPLOYEE
-        JOIN DEPARTMENT ON DEPARTMENT.name= EMPLOYEE.job_title";
+        $sql = "SELECT * FROM ticket";
         
         $result = $conn->query($sql);
 
         
         if ($result->num_rows > 0) {
             echo "<table border='1'>";
-            echo "<tr><th>Employee ID</th><th>Employee Name</th><th>Job Title</th><th>Hire Date</th><th>Salary</th><th>Department</th></tr>";
+            echo "<tr><th>Ticket ID</th><th>Ticket Type</th><th>Price</th><th>Ticket Status</th></tr>";
             // output data of each row
             while($row = $result->fetch_assoc()) {
                 echo "<tr>";
-                echo "<td>" . $row["emp_id"] . "</td>";
-                echo "<td>" . $row["emp_name"] . "</td>";
-                echo "<td>" . $row["job_title"] . "</td>";
-                echo "<td>" . $row["hire_date"] . "</td>";
-                echo "<td>" . $row["salary"] . "</td>";
-                echo "<td>" . $row["name"] . "</td>";
+                echo "<td>" . $row["id"] . "</td>";
+                echo "<td>" . $row["ticket_type"] . "</td>";
+                echo "<td>" . $row["price"] . "</td>";
+                echo "<td>" . $row["ticket_status"] . "</td>";
                 echo "</tr>";
             }
             echo "</table>";
