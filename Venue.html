@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venue</title>
+    <link rel="stylesheet" href="Ok.css">
+</head>
+<body>
+
+<div class="container">
+    <a href="index.html"> 
+        <button>Home</button>
+    </a>
+
+    <h1>Add Venue</h1>
+    <form action="venuechanges.php" method="post">
+        <label for="id">ID</label>
+        <input type="text" id="id" name="id">
+        <label for="venue_name">Venue Name</label>
+        <input type="text" id="venue_name" name="venue_name">
+        <label for="location">Location</label>
+        <input type="text" id="location" name="location">
+        <label for="capacity">Capacity</label>
+        <input type="text" id="capacity" name="capacity">
+        <button type="submit" name="submit" value="submit">Submit</button>
+        <a href='update_venue.php'> 
+            <button type="update"> Update </button> 
+        </a>
+    </form>
+
+    <form action="viewvenue.php" method="post">
+        <button type="submit" name="view" value="view">View Venue</button>
+    </form>
+</div>
+
+</body>
+</html>
