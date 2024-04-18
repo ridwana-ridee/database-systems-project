@@ -8,3 +8,4 @@ user_role VARCHAR(50),
 fName VARCHAR(100),
 lName VARCHAR(100) );
 
+ALTER TABLE user ALTER user_role SET DEFAULT 'user';

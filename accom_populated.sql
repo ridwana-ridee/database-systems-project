@@ -33,15 +33,3 @@ VALUES ('Hotel X Toronto by Library Hotel Collection', "111 Princes' Blvd, Toron
 ('Hyatt Regency Santa Clara', '5101 Great America Pkwy, Santa Clara, CA 95054', '2 bed', 15),
 ('Silver Cloud Hotel - Seattle Stadium', '1046 1st Ave S, Seattle, WA 98134', '1 bed', 16),
 ('Best Western Plus Pioneer Square Hotel Downtown', '77 Yesler Wy, Seattle, WA 98104', '2 bed', 16);
-
-
-
-
-
-
-
-
-
-
-
-
