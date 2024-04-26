@@ -2,8 +2,8 @@
 // Database configuration
 $host = 'localhost'; // or your host
 $dbname = 'world-cup-db';
-$username = 'yourUsername';
-$password = 'yourPassword';
+$username = 'root';
+$password = '';
 
 // Create connection
 $conn = new mysqli($host, $username, $password, $dbname);
