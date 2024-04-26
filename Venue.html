@@ -15,22 +15,19 @@
 
     <h1>Add Venue</h1>
     <form action="venuechanges.php" method="post">
-        <label for="id">ID</label>
+        <label for="id">ID (Enter Number)</label>
         <input type="text" id="id" name="id">
         <label for="venue_name">Venue Name</label>
         <input type="text" id="venue_name" name="venue_name">
         <label for="location">Location</label>
         <input type="text" id="location" name="location">
-        <label for="capacity">Capacity</label>
+        <label for="capacity">Capacity (Enter Number)</label>
         <input type="text" id="capacity" name="capacity">
         <button type="submit" name="submit" value="submit">Submit</button>
-        <a href='update_venue.php'> 
-            <button type="update"> Update </button> 
-        </a>
     </form>
 
     <form action="viewvenue.php" method="post">
-        <button type="submit" name="view" value="view">View Venue</button>
+        <button type="submit" name="view" value="view">View/Edit Venue</button>
     </form>
 </div>
 
