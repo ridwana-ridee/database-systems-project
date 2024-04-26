@@ -38,9 +38,10 @@
             echo "<h2>Sorry! You didn’t complete the form. Please try again.</h2>";
         }
 
-        echo "<p><a href='Venue.html'>Enter new employee.</a></p>";
+        echo "<p><a href='Venue.html'>
+                <button>Enter New Venue</button>
+            </a></p>";
         echo "<h2>All Match data</h2>";
-
         ?>
         <?php
         
