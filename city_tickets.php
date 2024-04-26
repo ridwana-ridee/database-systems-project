@@ -1,88 +1,99 @@
 <?php
-// Set up database connection variables
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "world-cup-db";
+// Database configuration
+$host = 'localhost'; // or your host
+$dbname = 'world-cup-db';
+$username = 'yourUsername';
+$password = 'yourPassword';
 
-// Create database connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+// Create connection
+$conn = new mysqli($host, $username, $password, $dbname);
 
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Form handling
-$selectedCity = isset($_POST['city']) ? $_POST['city'] : '';
+// Fetch all cities from the venue table for the dropdown
+$citiesQuery = "SELECT DISTINCT location FROM venue ORDER BY location";
+$citiesResult = $conn->query($citiesQuery);
+?>
 
-echo '<h1>Select a City to View Available Tickets</h1>';
-echo '<form method="post" action="">';
-echo '<select name="city">';
-echo '<option value="">Select a City</option>';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Select a City</title>
+</head>
+<body>
+    <h1>Select a City to View Available Tickets</h1>
+    <form method="POST">
+        <label for="city">Choose a city:</label>
+        <select name="city" id="city">
+            <?php
+            if ($citiesResult->num_rows > 0) {
+                while ($row = $citiesResult->fetch_assoc()) {
+                    echo "<option value=\"" . htmlspecialchars($row['location']) . "\">" . htmlspecialchars($row['location']) . "</option>";
+                }
+            } else {
+                echo "<option>No cities available</option>";
+            }
+            ?>
+        </select>
+        <button type="submit" name="submit">Check Tickets</button>
+    </form>
 
-// Retrieve venue locations from the database
-$cityQuery = "SELECT DISTINCT location FROM venue";
-$cityResult = $conn->query($cityQuery);
-while ($row = $cityResult->fetch_assoc()) {
-    $isSelected = ($selectedCity == $row['location']) ? ' selected' : '';
-    echo "<option value='{$row['location']}'$isSelected>{$row['location']}</option>";
-}
-echo '</select>';
-echo '<input type="submit" value="Show Tickets">';
-echo '</form>';
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
+    $selectedCity = $conn->real_escape_string($_POST['city']);
 
-// Display tickets if a city is selected
-if ($selectedCity) {
-    // Query to find venue ID for the selected city
-    $venueQuery = "SELECT id FROM venue WHERE location = ?";
-    $stmt = $conn->prepare($venueQuery);
-    $stmt->bind_param("s", $selectedCity);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    
+    // Query to find games in the selected city
+    $gamesInCityQuery = "SELECT id FROM game WHERE venue_id IN (SELECT id FROM venue WHERE location = '$selectedCity')";
+
+    // Execute the query
+    $result = $conn->query($gamesInCityQuery);
+
+    // Collect game IDs
+    $gameIds = [];
     if ($result->num_rows > 0) {
-        $venueRow = $result->fetch_assoc();
-        $venueId = $venueRow['id'];
-
-        // Query to count available tickets for games in this venue
-        $ticketCountQuery = "SELECT COUNT(*) AS available_tickets FROM ticket 
-                             WHERE ticket_status = 'available' AND game_id IN (
-                                 SELECT id FROM game WHERE venue_id = $venueId
-                             )";
-        $countResult = $conn->query($ticketCountQuery);
-
-        if ($countResult->num_rows > 0) {
-            $countRow = $countResult->fetch_assoc();
-            echo "<p>Available Tickets in " . htmlspecialchars($selectedCity) . ": " . $countRow['available_tickets'] . "</p>";
+        while ($row = $result->fetch_assoc()) {
+            $gameIds[] = $row['id'];
         }
+    } else {
+        echo "No games found in $selectedCity.<br>";
+    }
 
-        // Query to display tickets for games in this venue
-        $ticketsQuery = "SELECT * FROM ticket WHERE game_id IN (
-                            SELECT id FROM game WHERE venue_id = $venueId
-                         )";
+    if (count($gameIds) > 0) {
+        // Convert game IDs array into a string for the IN clause
+        $gameIdsString = implode(',', $gameIds);
+
+        // Query to count available tickets for these games
+        $ticketCountQuery = "SELECT COUNT(*) as availableTickets FROM ticket WHERE ticket_status = 'Available' AND game_id IN ($gameIdsString)";
+        $countResult = $conn->query($ticketCountQuery);
+        $availableTickets = $countResult->fetch_assoc();
+
+        // Display the number of available tickets
+        echo "Number of available tickets for games in $selectedCity: " . $availableTickets['availableTickets'] . "<br>";
+
+        // Query to display tickets for these games
+        $ticketsQuery = "SELECT * FROM ticket WHERE game_id IN ($gameIdsString)";
         $ticketsResult = $conn->query($ticketsQuery);
 
+        // Check and display the ticket details
         if ($ticketsResult->num_rows > 0) {
-            echo "<table border='1'>";
-            echo "<tr><th>ID</th><th>Type</th><th>Price</th><th>Status</th></tr>";
+            echo "<table border='1'><tr><th>ID</th><th>Type</th><th>Price</th><th>Status</th></tr>";
             while ($ticket = $ticketsResult->fetch_assoc()) {
-                echo "<tr>
-                        <td>" . $ticket['id'] . "</td>
-                        <td>" . $ticket['ticket_type'] . "</td>
-                        <td>" . $ticket['price'] . "</td>
-                        <td>" . $ticket['ticket_status'] . "</td>
-                      </tr>";
+                echo "<tr><td>" . $ticket['id'] . "</td><td>" . $ticket['ticket_type'] . "</td><td>" . $ticket['price'] . "</td><td>" . $ticket['ticket_status'] . "</td></tr>";
             }
             echo "</table>";
         } else {
-            echo "<p>No tickets found for games in " . htmlspecialchars($selectedCity) . ".</p>";
+            echo "No tickets available for games in $selectedCity.";
         }
-    } else {
-        echo "<p>No venue found for " . htmlspecialchars($selectedCity) . ".</p>";
     }
 }
 
-// Close the connection
+// Close connection
 $conn->close();
 ?>
+
+</body>
+</html>
