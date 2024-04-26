@@ -40,9 +40,10 @@
             echo "<h2>Sorry! You didn’t complete the form. Please try again.</h2>";
         }
 
-        echo "<p><a href='Ticket.html'>Enter New Ticket.</a></p>";
+        echo "<p><a href='Ticket.html'>
+                <button>Enter New Ticket</button>
+            </a></p>";
         echo "<h2>All Match data</h2>";
-
         ?>
         <?php
         
@@ -53,7 +54,7 @@
         
         if ($result->num_rows > 0) {
             echo "<table border='1'>";
-            echo "<tr><th>Ticket Type</th><th>Price</th><th>Ticket Status</th><th>Game ID</th><th>Update</th><th>Delete</th></tr>";
+            echo "<tr><th>ID</th><th>Ticket Type</th><th>Price</th><th>Ticket Status</th><th>Game ID</th><th>Update</th><th>Delete</th></tr>";
             // output data of each row
             while($row = $result->fetch_assoc()) {
                 ?>
