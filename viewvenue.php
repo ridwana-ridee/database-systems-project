@@ -48,6 +48,5 @@
     <br><a href="Venue.html">
         <button>Back to Add Venue</button>
     </a>
-    
 </body>
 </html>
