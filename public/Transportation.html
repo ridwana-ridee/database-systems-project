@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transportation</title>
+    <link rel="stylesheet" href="Ok.css">
+</head>
+<body>
+
+<div class="container">
+    <a href="index.html">
+        <button>Home</button>
+    </a>
+
+    <h1>Add Transportation</h1>
+    <form action="transportationchanges.php" method="post">
+        <label for="id">ID (Enter Number)</label>
+        <input type="text" id="id" name="id">
+        
+        <label for="transport_type">Transport Type</label>
+        <input type="text" id="transport_type" name="transport_type">
+        
+        <label for="location">Location</label>
+        <input type="text" id="location" name="location">
+       
+        <label for="availability">Availability</label>
+        <input type="text" id="availability" name="availability">
+
+        <label for="venue_id">Venue ID (Enter Number Between 1-16)</label>
+        <input type="text" id="venue_id" name="venue_id">
+        
+        <button type="submit" name="submit" value="submit">Submit</button>
+    </form>
+
+    <form action="viewtransport.php" method="post">
+        <button type="submit" name="view" value="view">View/Edit Transport</button>
+    </form>
+</div>
+
+</body>
+</html>
