@@ -5,16 +5,7 @@
 </head>
 <body>
     <?php
-        $host = "localhost";
-        $user = "root";
-        $pass = "";
-        $dbname = "world-cup-db";
-
-        $conn = new mysqli($host, $user, $pass, $dbname);
-
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
+        require 'db_config.php';
 
         if (isset($_POST['id']) && !empty($_POST['id']) &&
             isset($_POST['venue_name']) && !empty($_POST['venue_name']) &&
