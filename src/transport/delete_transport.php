@@ -9,18 +9,9 @@
 <body>
     <div class="container">            
         <?php
+        require 'db_config.php';
+
         if(isset($_GET['id']) && !empty($_GET['id'])) {
-            $host = "localhost";
-            $user = "root";
-            $pass = "";
-            $dbname = "world-cup-db";
-
-            $conn = new mysqli($host, $user, $pass, $dbname);
-
-            if ($conn->connect_error) {
-                die("Connection failed: " . $conn->connect_error);
-            }
-
             $id = $_GET['id'];
             $sql = "DELETE FROM transportation WHERE id='$id'";
 
