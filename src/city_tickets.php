@@ -1,17 +1,6 @@
 <?php
 // Database configuration
-$host = 'localhost'; // or your host
-$dbname = 'world-cup-db';
-$username = 'root';
-$password = '';
-
-// Create connection
-$conn = new mysqli($host, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+require 'db_config.php';
 
 // Fetch all cities from the venue table for the dropdown
 $citiesQuery = "SELECT DISTINCT location FROM venue ORDER BY location";
