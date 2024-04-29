@@ -5,16 +5,8 @@
 </head>
 <body>
     <?php
-        $host = "localhost";
-        $user = "root";
-        $pass = "";
-        $dbname = "world-cup-db";
+        require 'db_config.php';
 
-        $conn = new mysqli($host, $user, $pass, $dbname);
-
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
         $sql = "SELECT * FROM transportation";
         
         $result = $conn->query($sql);
