@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games</title>
+    <link rel="stylesheet" href="Ok.css">
+</head>
+<body>
+
+<div class="container">
+    <a href="index.html"> 
+        <button>Home</button>
+    </a>
+
+    <h1>Add Match</h1>
+    <form action="gamechanges.php" method="post">
+        <label for="id">ID (Enter Number)</label>
+        <input type="text" id="id" name="id">
+        
+        <label for="match_name">Match Name</label>
+        <input type="text" id="match_name" name="match_name">
+
+        <label for="match_round">Match Round</label>
+        <input type="text" id="match_round" name="match_round">
+        
+        <label for="match_date">Match Date</label>
+        <input type="date" id="match_date" name="match_date">
+        
+        <br><br><label for="venue_id">Venue ID (Enter Number Between 1-16)</label>
+        <input type="text" id="venue_id" name="venue_id">
+        
+        <button type="submit" name="submit" value="submit">Submit</button>
+        
+    </form>
+
+    <form action="viewgames.php" method="post">
+        <button type="submit" name="view" value="view">View/Edit Matches</button>
+    </form>
+</div>
+
+</body>
+</html>
