@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accomodation</title>
+    <link rel="stylesheet" href="Ok.css">
+</head>
+<body>
+
+<div class="container">
+    <a href="index.html">
+        <button>Home</button>
+    </a>
+
+    <h1>Add Accomodations</h1>
+    <form action="accomodationchanges.php" method="post">
+        <label for="id">ID (Enter Number)</label>
+        <input type="text" id="id" name="id">
+        
+        <label for="hotel_name">Hotel Name</label>
+        <input type="text" id="hotel_name" name="hotel_name">
+        
+        <label for="location">Location</label>
+        <input type="text" id="location" name="location">
+       
+        <label for="room_type">Room Type</label>
+        <input type="text" id="room_type" name="room_type">
+
+        <label for="venue_id">Venue ID (Enter Number Between 1-16)</label>
+        <input type="text" id="venue_id" name="venue_id">
+        
+        <button type="submit" name="submit" value="submit">Submit</button>
+        
+    </form>
+
+    <form action="viewaccomodation.php" method="post">
+        <button type="submit" name="view" value="view">View/Edit Transport</button>
+    </form>
+</div>
+
+</body>
+</html>
