@@ -30,13 +30,13 @@ This repository contains the source code and resources for the World Cup Event M
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/yourusername/world-cup-event-management-system.git
+    git clone https://github.com/yourusername/database-systems-project.git
     ```
 
 2. Navigate to the project directory:
 
     ```bash
-    cd world-cup-event-management-system
+    cd database-systems-project
     ```
 
 3. Install dependencies and set up the environment as required (e.g., Composer for PHP packages).
